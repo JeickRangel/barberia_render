@@ -1,8 +1,9 @@
-# Imagen oficial de PHP 8.2 con Apache (ya trae servidor web)
+# Imagen oficial de PHP 8.2 con Apache
 FROM php:8.2-apache
 
-# Instalamos extensiones necesarias para MySQL con PDO
-RUN docker-php-ext-install pdo pdo_mysql
+# Instalamos extensiones necesarias para MySQL (mysqli y PDO)
+RUN docker-php-ext-install mysqli pdo pdo_mysql \
+    && docker-php-ext-enable mysqli pdo_mysql
 
 # (Opcional) Activamos mod_rewrite si llegas a usar URLs bonitas
 RUN a2enmod rewrite
@@ -16,5 +17,5 @@ COPY . /var/www/html
 # Exponemos el puerto 80 (Apache)
 EXPOSE 80
 
-# Comando por defecto (ya viene configurado para lanzar Apache en foreground)
+# Comando por defecto para lanzar Apache
 CMD ["apache2-foreground"]
