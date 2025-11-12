@@ -20,5 +20,5 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8mb4");
 
 // ✅ Si llegaste aquí, la conexión fue exitosa
-echo "✅ Conexión exitosa a la base de datos.";
+//echo "✅ Conexión exitosa a la base de datos.";
 ?>
