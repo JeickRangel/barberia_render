@@ -1,15 +1,15 @@
 <?php
-// conexión.php
-// Archivo único de conexión a la base de datos MySQL
+// conexion.php
+// Archivo único de conexión a la base de datos MySQL (FreeSQLDatabase)
 
-$host = "localhost";   // Servidor (en XAMPP es siempre localhost)
-$user = "root";        // Usuario por defecto en XAMPP
-$pass = "";            // Contraseña (en XAMPP normalmente está vacía)
-$db   = "barberia_app"; // Nombre de la base de datos que creaste
+$host = "sql10.freesqldatabase.com";   // Servidor de FreeSQLDatabase
+$user = "sql10807320";                 // Usuario generado
+$pass = "rcs4P8M8LS";                  // Contraseña
+$db   = "sql10807320";                 // Nombre de la base
+$port = 3306;                          // Puerto estándar de MySQL
 
-
-// Crear conexión con MySQL
-$conn = new mysqli($host, $user, $pass, $db);
+// Crear conexión con MySQL (con puerto incluido)
+$conn = new mysqli($host, $user, $pass, $db, $port);
 
 // Verificar si hay error de conexión
 if ($conn->connect_error) {
@@ -20,4 +20,5 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8mb4");
 
 // ✅ Si llegaste aquí, la conexión fue exitosa
+echo "✅ Conexión exitosa a la base de datos.";
 ?>
