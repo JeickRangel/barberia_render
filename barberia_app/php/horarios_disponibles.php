@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . "/cors.php";
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Content-Type: application/json; charset=utf-8");
+require_once __DIR__ . "/cors.php"; // ✅ CORS solo aquí
+header("Content-Type: application/json; charset=utf-8"); // ✅ Respondemos JSON
+
 require_once "conexion.php";
 
 $empleado_id = intval($_GET['empleado_id'] ?? 0);
@@ -71,7 +71,7 @@ while ($row = $res->fetch_assoc()) {
 // 5. Filtrar horarios disponibles
 $disponibles = array_values(array_diff($horarios, $ocupados));
 
-// 🔎 Debug (se verá en el log de PHP/XAMPP)
+// 🔎 Debug (se verá en el log del servidor)
 error_log("Horarios generados: " . json_encode($horarios));
 error_log("Ocupados: " . json_encode($ocupados));
 error_log("Disponibles: " . json_encode($disponibles));

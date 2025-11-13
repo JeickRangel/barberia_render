@@ -1,17 +1,7 @@
 <?php
-require_once __DIR__ . "/cors.php";
-// disponibilidad.php
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
+require_once __DIR__ . "/cors.php"; // ✅ CORS solo aquí
 
 header("Content-Type: application/json; charset=utf-8");
-
 require_once "conexion.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -74,24 +64,23 @@ switch ($method) {
         break;
 
     case 'DELETE': // 🔹 Eliminar disponibilidad
-    $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['id_disponibilidad'] ?? null;
+        $data = json_decode(file_get_contents("php://input"), true);
+        $id = $data['id_disponibilidad'] ?? null;
 
-    if (!$id) {
-        echo json_encode(["status" => "ERROR", "message" => "id_disponibilidad requerido"]);
-        exit();
-    }
+        if (!$id) {
+            echo json_encode(["status" => "ERROR", "message" => "id_disponibilidad requerido"]);
+            exit();
+        }
 
-    $stmt = $conn->prepare("DELETE FROM disponibilidad WHERE id_disponibilidad=?");
-    $stmt->bind_param("i", $id);
+        $stmt = $conn->prepare("DELETE FROM disponibilidad WHERE id_disponibilidad=?");
+        $stmt->bind_param("i", $id);
 
-    if ($stmt->execute()) {
-        echo json_encode(["status" => "OK", "message" => "Disponibilidad eliminada"]);
-    } else {
-        echo json_encode(["status" => "ERROR", "message" => $stmt->error]);
-    }
-    break;
-
+        if ($stmt->execute()) {
+            echo json_encode(["status" => "OK", "message" => "Disponibilidad eliminada"]);
+        } else {
+            echo json_encode(["status" => "ERROR", "message" => $stmt->error]);
+        }
+        break;
 
     default:
         http_response_code(405);

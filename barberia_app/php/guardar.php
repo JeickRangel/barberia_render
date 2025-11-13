@@ -1,16 +1,7 @@
 <?php
-// Habilitar CORS para permitir llamadas desde React (puerto 5173)
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+require_once __DIR__ . "/cors.php"; // ✅ CORS solo aquí
+header("Content-Type: text/plain; charset=utf-8"); // ✅ Responderemos texto plano
 
-// Si es una petición preflight (OPTIONS), respondemos y salimos
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
-header("Content-Type: text/plain; charset=utf-8");
 require_once "conexion.php"; // Importa la conexión
 
 // 1. Capturar los datos del formulario
@@ -45,6 +36,7 @@ $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows > 0) {
+    http_response_code(409); // conflicto
     exit("El correo o el documento ya está registrado.");
 }
 $stmt->close();
@@ -75,5 +67,4 @@ $stmt->execute();
 $stmt->close();
 
 // 6. Respuesta final al frontend
-echo "¡OK!"; // Tu frontend busca este mensaje
-?>
+echo "OK"; // 👈 si tu frontend busca "OK", mejor sin símbolo raro
