@@ -9,17 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-$host = "localhost";
-$user = "root"; // tu usuario MySQL
-$pass = "";     // tu contraseña MySQL
-$db = "barberia_app";
-
-// Conexión
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conn->connect_error]));
-}
+require_once 'conexion.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 
