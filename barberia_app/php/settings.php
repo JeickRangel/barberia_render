@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/cors.php";
 require_once "cors.php";                      // 1) CORS primero
 header("Content-Type: application/json; charset=utf-8");   // 2) tipo JSON
 require_once "conexion.php";                  // 3) DB

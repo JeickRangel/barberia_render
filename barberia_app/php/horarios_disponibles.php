@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/cors.php";
 header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Content-Type: application/json; charset=utf-8");
 require_once "conexion.php";
